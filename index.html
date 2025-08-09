@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#e91e63"/>
 <title>For Henal — Raksha Bandhan</title>
 <style>
   :root{
-    --bg:#fff7ea;--ink:#1f2937;--rose:#e91e63;--marigold:#f6a500;--teal:#0f766e;--card:#ffffff;--line:#f2dfc9;
+    --bg:#fff7ea; --ink:#111827; --rose:#e91e63; --marigold:#f6a500; --teal:#0f766e; --card:#ffffff; --line:#efdfc9;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0;height:100%}
+  *{box-sizing:border-box} html,body{margin:0;height:100%}
   body{
     font-family:ui-rounded,system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial;
     color:var(--ink);
@@ -19,16 +19,21 @@
       var(--bg);
   }
   .wrap{max-width:980px;margin:0 auto;padding:12px}
+  /* subtle marigold garlands */
+  .garlands{position:fixed;inset:0 0 auto 0;height:72px;pointer-events:none;z-index:1;opacity:.6;
+    background:
+      radial-gradient(circle at 40px 10px,#f6a500 0 6px,transparent 7px),
+      radial-gradient(circle at 80px 10px,#f6a500 0 6px,transparent 7px),
+      radial-gradient(circle at 120px 10px,#f6a500 0 6px,transparent 7px);
+    background-repeat:repeat-x;background-size:160px 72px;mask:linear-gradient(#000,transparent 85%);
+  }
   header{
-    display:flex;gap:10px;align-items:center;justify-content:space-between;
-    backdrop-filter:saturate(1.2) blur(6px);
-    border:1px solid var(--line);
-    background:rgba(255,255,255,.65);
-    border-radius:16px;padding:10px 12px;
-    position:sticky;top:8px;z-index:5;
+    position:sticky;top:10px;z-index:5;display:flex;gap:10px;align-items:center;justify-content:space-between;
+    padding:10px 12px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.72);
+    backdrop-filter:saturate(1.2) blur(6px)
   }
   .title{font-weight:800;font-size:1.1rem}
-  .sub{font-size:.88rem;opacity:.8}
+  .sub{opacity:.75;font-size:.9rem}
   .chips{display:flex;gap:8px;align-items:center}
   .chip{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 0 0 2px #e9d6c9}
 
@@ -37,32 +42,28 @@
   .rakhi i{width:18px;height:18px;border-radius:50%;display:inline-block;background:
     radial-gradient(circle at 30% 30%,#ffd166,#f59e0b);box-shadow:0 0 0 2px #fff,0 0 0 3px #fad6a5}
 
-  /* Gift Stage */
+  /* Gift + Letter */
   .stage{display:grid;place-items:center;min-height:70vh;position:relative;padding:10px}
-  .gift{
-    width:250px;height:210px;position:relative;cursor:pointer;transform-style:preserve-3d;
-    filter:drop-shadow(0 20px 40px rgba(0,0,0,.15));
-  }
+  .gift{width:250px;height:210px;position:relative;cursor:pointer;transform-style:preserve-3d;
+    filter:drop-shadow(0 20px 40px rgba(0,0,0,.15))}
   .box{position:absolute;inset:30px 0 0 0;background:linear-gradient(180deg,#ffb4cb,#ff8fb2);
        border:2px solid #ff99b7;border-radius:14px}
   .ribbon-v,.ribbon-h{position:absolute;background:#e91e63}
   .ribbon-v{width:18px;left:50%;top:30px;bottom:0;transform:translateX(-50%)}
   .ribbon-h{height:18px;left:0;right:0;top:110px}
-  .lid{position:absolute;left:-6px;right:-6px;top:0;height:70px;border-radius:14px 14px 10px 10px;
-       background:linear-gradient(180deg,#ffdbe6,#ffb0c6);border:2px solid #ff99b7;
-       transform-origin:left bottom;transition:transform .9s cubic-bezier(.2,.9,.2,1)}
+  .lid{position:absolute;left:-6px;right:-6px;top:0;height:70px;border-radius:14px 14px 10px 10px;background:
+       linear-gradient(180deg,#ffdbe6,#ffb0c6);border:2px solid #ff99b7;transform-origin:left bottom;
+       transition:transform .9s cubic-bezier(.2,.9,.2,1)}
   .bow{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:120px;height:60px}
   .bow:before,.bow:after{content:"";position:absolute;width:58px;height:58px;border-radius:50%;
        background:radial-gradient(circle at 30% 30%,#ff7696,#e91e63)}
-  .bow:before{left:0} .bow:after{right:0}
+  .bow:before{left:0}.bow:after{right:0}
   .tap{position:absolute;width:100%;text-align:center;bottom:-28px;color:var(--rose);font-weight:700}
 
   .opened .lid{transform:rotateX(140deg) rotateZ(-8deg) translateY(-4px)}
-  .letter{
-    position:absolute;width:min(92vw,720px);background:var(--card);border:1px solid var(--line);
-    border-radius:18px;padding:16px;transform:translateY(32px) scale(.98);opacity:0;pointer-events:none;
-    box-shadow:0 28px 60px rgba(0,0,0,.14);transition:all .7s ease .2s;
-  }
+  .letter{position:absolute;width:min(92vw,720px);background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:16px;transform:translateY(32px) scale(.98);opacity:0;pointer-events:none;
+    box-shadow:0 28px 60px rgba(0,0,0,.14);transition:all .7s ease .2s;z-index:2}
   .show-letter .letter{opacity:1;transform:translateY(-36px) scale(1);pointer-events:auto}
   .letter h2{margin:0 0 6px;color:var(--rose)}
   .type{white-space:pre-wrap;line-height:1.6;font-size:1.02rem}
@@ -71,16 +72,13 @@
   .primary{background:var(--rose);color:#fff;box-shadow:0 8px 20px rgba(233,30,99,.22)}
   .ghost{background:#fff;color:var(--rose);border:1px solid #ffd2dc}
 
-  /* Memory Lane */
+  /* Memory lane */
   section#mem{display:none}
   .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}
   .rail{display:grid;grid-auto-flow:column;grid-auto-columns:88%;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 10px}
   .panel{scroll-snap-align:center;position:relative;padding:16px;border:1px dashed var(--line);border-radius:16px;
-    background:
-      radial-gradient(700px 400px at -10% -10%,#ffe9f3 0%,transparent 60%),
-      radial-gradient(700px 400px at 110% 110%,#e8fff6 0%,transparent 60%),
-      #fff;
-  }
+    background:radial-gradient(700px 400px at -10% -10%,#ffe9f3 0%,transparent 60%),
+               radial-gradient(700px 400px at 110% 110%,#e8fff6 0%,transparent 60%),#fff}
   .pH{display:flex;align-items:center;gap:10px}
   .pH img{width:54px;height:54px;border-radius:12px;object-fit:cover;border:2px solid #fff;box-shadow:0 0 0 2px #e9d6c9}
   .pH h3{margin:0;font-size:1.05rem}
@@ -96,6 +94,154 @@
   /* Confetti */
   .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:20}
   .piece{position:absolute;width:10px;height:14px;opacity:.9;top:-20px;animation:fall 2.2s linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+  @media (min-width:840px){.rail{grid-auto-columns:min(44%,420px)}}
+</style>
+</head>
+<body>
+<div class="garlands" aria-hidden="true"></div>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="title">For my sister, Henal 💖</div>
+      <div class="sub">A tiny festive Raksha Bandhan surprise</div>
+    </div>
+    <div class="chips">
+      <img class="chip" src="sister.png" alt="Henal"/>
+      <img class="chip" src="brother.png" alt="Brother"/>
+    </div>
+  </header>
+
+  <div class="rakhi"><i></i></div>
+
+  <!-- Gift + Letter -->
+  <section class="stage" id="stage">
+    <div class="gift" id="gift" role="button" aria-label="Open gift">
+      <div class="box"></div>
+      <div class="ribbon-v"></div><div class="ribbon-h"></div>
+      <div class="lid"><div class="bow"></div></div>
+      <div class="tap">Tap to open 🎁</div>
+    </div>
+
+    <article class="letter card" id="letter" aria-live="polite">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <img class="chip" style="width:32px;height:32px" src="sister.png" alt="Henal">
+        <h2 style="margin:0">Dear Henal,</h2>
+      </div>
+      <div class="type" id="typewriter"></div>
+      <div class="controls">
+        <button class="btn primary" id="toMem">Walk down memory lane →</button>
+        <button class="btn ghost" id="replay">Replay letter</button>
+      </div>
+    </article>
+  </section>
+
+  <!-- Memory Lane -->
+  <section id="mem">
+    <div class="rakhi"><i></i></div>
+    <div class="card">
+      <h2 style="margin:0 0 6px">Memory Lane 🌸</h2>
+      <div class="rail">
+        <div class="panel fade">
+          <div class="tag">📱</div>
+          <div class="pH"><img src="sister.png" alt=""><h3>The Bathroom Call (Origin)</h3></div>
+          <div class="pB">Mitesh in the bathroom, me picking his phone, and you on the other side—instant banter and a legendary first chat. 😂</div>
+        </div>
+
+        <div class="panel fade">
+          <div class="tag">🤳</div>
+          <div class="pH"><img src="brother.png" alt=""><h3>The Spoof Photo Dump</h3></div>
+          <div class="pB">That day I sent you every hilariously bad Mitesh picture for fun. Chaos. Laughter. Zero regrets.</div>
+        </div>
+
+        <div class="panel fade">
+          <div class="tag">💬</div>
+          <div class="pH"><img src="sister.png" alt=""><h3>The Fantastic Four</h3></div>
+          <div class="pB">Me, <b>Chakli</b>, <b>Divyesh</b>, <b>Mitesh</b>, and you — late-night roasts and comfort chats that felt like home.</div>
+        </div>
+
+        <div class="panel fade">
+          <div class="tag">🧭</div>
+          <div class="pH"><img src="brother.png" alt=""><h3>Life Went 120 km/h</h3></div>
+          <div class="pB">Work moved me far; messages got shorter; calls got rarer — but you still had my back.</div>
+        </div>
+
+        <div class="panel fade">
+          <div class="tag">🏡</div>
+          <div class="pH"><img src="sister.png" alt=""><h3>Two Homes, One Team</h3></div>
+          <div class="pB">You building your home with <b>Mitesh</b>, and me building mine with my partner. New routines, less time — same bond.</div>
+        </div>
+
+        <div class="panel fade">
+          <div class="tag">🌱</div>
+          <div class="pH"><img src="brother.png" alt=""><h3>This Year’s Promise</h3></div>
+          <div class="pB">Quicker callbacks, a monthly chai/ice-cream on me, and one premium rant-listener session. Deal?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card final" style="margin-top:14px">
+      <p class="promise">“Call back within 30 minutes (unless in class), monthly hangout, and full-attention rant time.”</p>
+      <p class="guj">આ વર્ષે વધારે વાત કરીયે — Promise. 💛</p>
+      <button class="btn primary" id="celebrate">Celebrate 🎊</button>
+    </div>
+  </section>
+
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<script>
+/* Gift -> Letter */
+const gift=document.getElementById('gift'), stage=document.getElementById('stage'), letter=document.getElementById('letter');
+let opened=false;
+gift.addEventListener('click',()=>{ if(opened) return; opened=true;
+  gift.classList.add('opened'); stage.classList.add('show-letter'); typeIt(); confettiBurst(40);
+},{passive:true});
+
+/* Letter text */
+const msg=`Happy Raksha Bandhan! 💛
+
+Thank you for sticking with me through every season—even when I vanish, miss calls, or act like a certified ullu sometimes. It’s never on purpose; life gets noisy and I drop the ball. I’m sorry.
+
+This year let’s keep it simple: more calls, more inside jokes, more “send me tea selfies right now.” I love you, and I’ll do better.
+
+— Your annoying, loyal brother`;
+const typeEl=document.getElementById('typewriter'); let idx=0, typer=null;
+function typeIt(){ clearInterval(typer); idx=0; typeEl.textContent='';
+  typer=setInterval(()=>{ typeEl.textContent=msg.slice(0,++idx); if(idx>=msg.length) clearInterval(typer); },22);
+}
+document.getElementById('replay').onclick=typeIt;
+
+/* To memory lane */
+document.getElementById('toMem').onclick=()=>{
+  stage.style.display='none'; document.getElementById('mem').style.display='block';
+  document.querySelectorAll('.fade').forEach((el,i)=>setTimeout(()=>el.classList.add('on'),120*i));
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* Confetti */
+const confettiBox=document.getElementById('confetti');
+function confettiBurst(n=80){
+  const hues=['#e91e63','#f6a500','#06d6a0','#118ab2','#835af6','#ffd166'];
+  for(let i=0;i<n;i++){
+    const d=document.createElement('div'); d.className='piece';
+    d.style.background=hues[i%hues.length];
+    d.style.left=Math.random()*100+'vw';
+    d.style.transform=`translateY(${Math.random()*-40}vh) rotate(${Math.random()*180}deg)`;
+    d.style.animationDelay=(Math.random()*0.6)+'s';
+    d.style.width=(8+Math.random()*6)+'px'; d.style.height=(10+Math.random()*10)+'px';
+    confettiBox.appendChild(d); setTimeout(()=>d.remove(),2600);
+  }
+}
+document.getElementById('celebrate').onclick=()=>confettiBurst();
+
+/* Keyboard access */
+gift.tabIndex=0; gift.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') gift.click(); });
+</script>
+</body>
+</html>  .piece{position:absolute;width:10px;height:14px;opacity:.9;top:-20px;animation:fall 2.2s linear forwards}
   @keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
   @media (min-width:840px){.rail{grid-auto-columns:min(44%,420px)}}
 </style>
